@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Patrick Hand', cursive !important;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow-x: hidden;
+    background: #ffe4ed;
+    color: #914d68;
+}
+
+.page {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px 18px;
+    background: #ffe4ed;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity .8s ease,
+                transform .8s ease,
+                visibility .8s ease;
+}
+
+.page.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    z-index: 10;
+}
+
+/* ENTRANCE */
+
+#entrance {
+    justify-content: center;
+}
+
+.prank-photo {
+    width: 145px;
+    height: 145px;
+    object-fit: cover;
+    border: 7px solid white;
+    border-radius: 8px;
+    transform: rotate(-8deg);
+    box-shadow: 0 6px 20px rgba(0,0,0,.15);
+    margin-bottom: 15px;
+    animation: photoIn 1s ease;
+}
+
+.entrance-heart {
+    font-size: 65px;
+    color: #d94f7b;
+    animation: heartbeat 1.5s infinite;
+}
+
+.entrance-title {
+    margin-top: 15px;
+    font-size: clamp(38px, 10vw, 58px);
+    color: #d94f7b;
+}
+
+.entrance-text {
+    margin-top: 15px;
+    max-width: 350px;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+button {
+    border: 2px solid white;
+    border-radius: 50px;
+    background: #ed7098;
+    color: white;
+    padding: 14px 38px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 25px;
+    box-shadow: 0 7px 20px rgba(200,70,115,.2);
+    transition: .2s;
+}
+
+button:active {
+    transform: scale(.94);
+}
+
+/* PAGE 2 */
+
+#main {
+    padding-top: 20px;
+}
+
+.heart {
+    color: #d94f7b;
+    font-size: 35px;
+    animation: heartbeat 1.5s infinite;
+}
+
+.title {
+    margin-top: 5px;
+    font-size: clamp(35px, 10vw, 55px);
+    color: #d94f7b;
+}
+
+.name {
+    margin-top: 12px;
+    font-size: clamp(27px, 7vw, 39px);
+    line-height: 1.2;
+    color: #e35b87;
+}
+
+.message {
+    margin-top: 15px;
+    max-width: 600px;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/* CAKE */
+
+.cake-area {
+    position: relative;
+    width: 300px;
+    height: 290px;
+    margin-top: 20px;
+    flex-shrink: 0;
+}
+
+.plate {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 255px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 7px 15px rgba(180,70,110,.12);
+}
+
+.cake {
+    position: absolute;
+    left: 50%;
+    bottom: 25px;
+    width: 230px;
+    height: 220px;
+    transform: translateX(-50%);
+}
+
+/* LAPIS KUE */
+
+.cake-bottom {
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    width: 220px;
+    height: 65px;
+    background: #ee6f98;
+    border-radius: 10px 10px 16px 16px;
+}
+
+.cake-bottom::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: -13px;
+    width: 224px;
+    height: 26px;
+    background: white;
+    border-radius: 50%;
+}
+
+.cake-middle {
+    position: absolute;
+    left: 25px;
+    bottom: 57px;
+    width: 180px;
+    height: 55px;
+    background: #f27da1;
+    border-radius: 10px;
+}
+
+.cake-middle::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: -12px;
+    width: 184px;
+    height: 25px;
+    background: white;
+    border-radius: 50%;
+}
+
+.cake-top {
+    position: absolute;
+    left: 50px;
+    bottom: 105px;
+    width: 140px;
+    height: 48px;
+    background: #f58aaa;
+    border-radius: 10px;
+}
+
+.cake-top::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: -13px;
+    width: 144px;
+    height: 27px;
+    background: white;
+    border-radius: 50%;
+}
+
+.drip {
+    position: absolute;
+    width: 13px;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    z-index: 10;
+}
+
+.d1 { left: 55px; top: 31px; height: 20px; }
+.d2 { left: 88px; top: 30px; height: 30px; }
+.d3 { left: 123px; top: 32px; height: 18px; }
+
+.dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d94f7b;
+}
+
+.dot1 { left: 30px; bottom: 17px; }
+.dot2 { left: 70px; bottom: 28px; }
+.dot3 { left: 112px; bottom: 16px; }
+.dot4 { left: 157px; bottom: 29px; }
+
+/* LILIN */
+
+.candle {
+    position: absolute;
+    left: 50%;
+    bottom: 153px;
+    width: 14px;
+    height: 48px;
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(
+        -45deg,
+        white 0px,
+        white 6px,
+        #f0789e 6px,
+        #f0789e 11px
+    );
+    border-radius: 4px;
+    z-index: 20;
+}
+
+.flame {
+    position: absolute;
+    left: 50%;
+    bottom: 195px;
+    width: 18px;
+    height: 25px;
+    transform: translateX(-50%) rotate(45deg);
+    background: #ffae54;
+    border-radius: 70% 30% 70% 30%;
+}
+
+/* ANIMASI KUE BERTAHAP */
+
+.cake-play .cake-bottom {
+    opacity: 0;
+    animation: cakeRise .65s ease-out .1s forwards;
+}
+
+.cake-play .cake-middle {
+    opacity: 0;
+    animation: cakeRise .65s ease-out .65s forwards;
+}
+
+.cake-play .cake-top {
+    opacity: 0;
+    animation: cakeRise .65s ease-out 1.2s forwards;
+}
+
+.cake-play .candle {
+    opacity: 0;
+    animation: candleAppear .5s ease-out 1.8s forwards;
+}
+
+.cake-play .flame {
+    opacity: 0;
+    animation: flameAppear .5s ease-out 2.3s forwards,
+               flameMove .7s ease-in-out 2.8s infinite alternate;
+}
+
+@keyframes cakeRise {
+    from {
+        opacity: 0;
+        transform: translateY(70px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes candleAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 30px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes flameAppear {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) rotate(45deg) scale(1);
+    }
+}
+
+@keyframes flameMove {
+    from {
+        transform: translateX(-50%) rotate(40deg) scale(1);
+    }
+    to {
+        transform: translateX(-50%) rotate(50deg) scale(1.12);
+    }
+}
+
+.final {
+    margin-top: 5px;
+    font-size: 21px;
+    line-height: 1.6;
+    color: #d94f7b;
+}
+
+.next-button {
+    margin-bottom: 25px;
+}
+
+/* PAGE 3 - LETTER */
+
+#letter {
+    padding: 35px 20px;
+    position: fixed;
+}
+
+.letter-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 550px;
+    margin: 130px auto;
+    padding: 28px 23px;
+    background: rgba(255,255,255,.82);
+    border: 1px solid rgba(217,79,123,.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(180,70,110,.1);
+    text-align: left;
+}
+
+.letter-heart {
+    text-align: center;
+    font-size: 35px;
+    color: #d94f7b;
+    margin-bottom: 12px;
+}
+
+.letter-title {
+    text-align: center;
+    font-size: 30px;
+    color: #d94f7b;
+    margin-bottom: 25px;
+}
+
+.letter-content {
+    font-size: 17px;
+    line-height: 2;
+    color: #914d68;
+    white-space: pre-line;
+}
+
+.letter-sign {
+    margin-top: 25px;
+    text-align: right;
+    color: #d94f7b;
+    font-size: 19px;
+    line-height: 1.8;
+}
+
+/* FOTO HIASAN LETTER */
+
+.corner-photo {
+    position: fixed;
+    width: 105px;
+    height: 125px;
+    object-fit: cover;
+    border: 6px solid white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+    z-index: 1;
+}
+
+.photo-top-left {
+    top: 15px;
+    left: 12px;
+    transform: rotate(-10deg);
+}
+
+.photo-top-right {
+    top: 15px;
+    right: 12px;
+    transform: rotate(9deg);
+}
+
+.photo-bottom-left {
+    bottom: 15px;
+    left: 12px;
+    transform: rotate(8deg);
+}
+
+.photo-bottom-right {
+    bottom: 15px;
+    right: 12px;
+    transform: rotate(-9deg);
+}
+
+/* PETALS */
+
+#petals {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 30;
+}
+
+.petal {
+    position: absolute;
+    top: -30px;
+    width: 13px;
+    height: 20px;
+    background: #f4779d;
+    border-radius: 80% 20% 80% 20%;
+    opacity: .65;
+    animation: petalFall linear infinite;
+}
+
+.p1 { left: 8%; animation-duration: 8s; }
+.p2 { left: 23%; animation-duration: 10s; animation-delay: 1s; }
+.p3 { left: 42%; animation-duration: 9s; animation-delay: 3s; }
+.p4 { left: 63%; animation-duration: 11s; animation-delay: 2s; }
+.p5 { left: 82%; animation-duration: 8s; animation-delay: 4s; }
+
+/* FIREWORKS */
+
+#fireworks {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 25;
+}
+
+/* ANIMATIONS */
+
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.13); }
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translateX(0) rotate(0);
+        top: -30px;
+    }
+    50% {
+        transform: translateX(30px) rotate(360deg);
+    }
+    100% {
+        transform: translateX(-25px) rotate(720deg);
+        top: 110%;
+    }
+}
+
+@keyframes photoIn {
+    from {
+        opacity: 0;
+        transform: rotate(-15deg) scale(.7);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(-8deg) scale(1);
+    }
+}
+
+/* RESPONSIVE */
+
+@media (max-height: 750px) {
+    #main {
+        padding-top: 8px;
+    }
+
+    .message {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .cake-area {
+        transform: scale(.8);
+        transform-origin: top center;
+        margin-bottom: -45px;
+    }
+}
+
+@media (max-width: 450px) {
+    .corner-photo {
+        width: 75px;
+        height: 90px;
+    }
+
+    .letter-container {
+        margin-top: 115px;
+        margin-bottom: 115px;
+        padding: 23px 18px;
+    }
+
+    .letter-title {
+        font-size: 26px;
+    }
+
+    .letter-content {
+        font-size: 16px;
+    }
+
+    .prank-photo {
+        width: 125px;
+        height: 125px;
+    }
+}
+
+@media (max-width: 360px) {
+    .cake-area {
+        transform: scale(.7);
+        transform-origin: top center;
+        margin-bottom: -65px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIK -->
+<audio id="lagu" src="lagu.mp3" loop preload="auto"></audio>
+
+<!-- FIREWORKS -->
+<canvas id="fireworks"></canvas>
+
+<!-- PETALS -->
+<div id="petals">
+    <div class="petal p1"></div>
+    <div class="petal p2"></div>
+    <div class="petal p3"></div>
+    <div class="petal p4"></div>
+    <div class="petal p5"></div>
+</div>
+
+<!-- HALAMAN 1 -->
+<section class="page active" id="entrance">
+
+    <img src="foto0.jpg" class="prank-photo" alt="Foto kejutan">
+
+    <div class="entrance-heart">♡</div>
+
+    <h1 class="entrance-title">DUARRRRRRRRRR</h1>
+
+    <p class="entrance-text">
+        ada sesuatuuuu.....
+        <br><br>
+        Ada sesuatu yang ingin aku sampaikan ke kamu
+        <br>
+        Pencet
+    </p>
+
+    <button onclick="openBirthday()">Buka</button>
+
+</section>
+
+<!-- HALAMAN 2 -->
+<section class="page" id="main">
+
+    <div class="heart">♡</div>
+
+    <h1 class="title">Happy Birthday!</h1>
+
+    <div class="name">
+        bilquist putri
+        <br>
+        novianti
+    </div>
+
+    <p class="message">
+        Haii yanti, selamat ulang tahun
+        yang ke 17 yaaa.
+        <br>
+        Semoga semua harapan kamu
+        perlahan menjadi kenyataan.
+        <br>
+        Semoga harimu selalu dipenuhi
+        kebahagiaan.
+    </p>
+
+    <div class="cake-area">
+
+        <div class="plate"></div>
+
+        <div class="cake">
+
+            <div class="cake-bottom">
+                <div class="dot dot1"></div>
+                <div class="dot dot2"></div>
+                <div class="dot dot3"></div>
+                <div class="dot dot4"></div>
+            </div>
+
+            <div class="cake-middle">
+                <div class="drip d1"></div>
+                <div class="drip d2"></div>
+                <div class="drip d3"></div>
+            </div>
+
+            <div class="cake-top"></div>
+
+            <div class="candle"></div>
+
+            <div class="flame"></div>
+
+        </div>
+    </div>
+
+    <div class="final">
+        You are soooo special
+        <br>
+        May you always be happy
+    </div>
+
+    <button class="next-button" onclick="goToLetter()">
+        next
+    </button>
+
+</section>
+
+<!-- HALAMAN 3 -->
+<section class="page" id="letter">
+
+    <img src="foto1.jpg"
+         class="corner-photo photo-top-left"
+         alt="Foto kenangan 1">
+
+    <img src="foto2.jpg"
+         class="corner-photo photo-top-right"
+         alt="Foto kenangan 2">
+
+    <img src="foto3.jpg"
+         class="corner-photo photo-bottom-left"
+         alt="Foto kenangan 3">
+
+    <img src="foto4.jpg"
+         class="corner-photo photo-bottom-right"
+         alt="Foto kenangan 4">
+
+    <div class="letter-container">
+
+        <div class="letter-heart">♡</div>
+
+        <h2 class="letter-title">
+            a little letter for you
+        </h2>
+
+        <div class="letter-content">
+
+Haii malkist.
+
+sebelumnya sekali lagi aku mau ngucapin selamat ulang tahun yang ke 17, ciee dh bisa bikin ktp, ciee jg bentar lagi lulus wkwkwk.
+
+selamatt yaa buat ulang tahun nyaa, semoga kamu terus berkembang menjadi lebih baikk, semoga kamu selalu di beri kesehatan, kelancaran, kemudahan, dan semoga semua harapan kamu cepat menjadi kenyataan.
+
+maaf yaa belum bisa ngasih yang terbaik buat kamu, maaf juga belum bisa jadi bf yang baik buat kamu atau jadi org terbaik yang kamu kenal.
+
+tapi aku mau nyambut ulang tahun kamu dengan ini, meski radak banyak yang error tapi yaudah lah wkwkwk
+
+makasih yaa udah pernah dateng ke hidup aku dan bikin hidup aku ga sepi lagii, makasih juga udah jadi gf yang baikkk banget buat aku, makasih juga selama ini kamu perhatiann banget sama aku, makasihh....
+
+aku banggaa bgt sama kamu selama ini, tiap kamu ceritain rencana kamu, masalah kamu, kegiatan kamu, atau apapun yang kamu ceritain ke aku, aku selalu bangga sama kamu....
+
+biar bagaimanapun kamu adalah orang yang paaliingg istimewa dalam hidup akuu.
+
+makasihh yaa iqis...,selamat ulang tahunn
+
+            <div class="letter-sign">
+                With love,
+                <br>
+                -yordhan
+                <br>
+                anjay
+            </div>
+
+        </div>
+
+    </div>
+
+    <button onclick="backToBirthday()">
+        back
+    </button>
+
+</section>
+
+<script>
+
+/* NAVIGASI HALAMAN */
+
+function showPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const targetPage = document.getElementById(pageId);
+
+    targetPage.classList.add("active");
+
+    targetPage.scrollTop = 0;
+}
+
+/* MUSIK */
+
+const music = document.getElementById("lagu");
+
+let musicStarted = false;
+
+function openBirthday() {
+
+    showPage("main");
+
+    // RESET DAN MULAI ULANG ANIMASI KUE
+    const cake = document.querySelector(".cake");
+
+    cake.classList.remove("cake-play");
+
+    // Memaksa browser mengulang animasi
+    void cake.offsetWidth;
+
+    cake.classList.add("cake-play");
+
+    // MUSIK
+    if (!musicStarted) {
+
+        music.volume = 0.7;
+
+        music.play()
+            .then(() => {
+                musicStarted = true;
+            })
+            .catch(error => {
+                console.log("Musik gagal diputar:", error);
+            });
+    }
+
+    // KEMBANG API
+    for (let i = 0; i < 6; i++) {
+        setTimeout(createFirework, i * 350);
+    }
+}
+
+/* HALAMAN 3 */
+
+function goToLetter() {
+    showPage("letter");
+}
+
+/* KEMBALI KE HALAMAN 2 */
+
+function backToBirthday() {
+    showPage("main");
+}
+
+/* FIREWORKS */
+
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+
+window.addEventListener("resize", resizeCanvas);
+
+function createFirework() {
+
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height * .42;
+
+    const colors = [
+        "#ffffff",
+        "#ff8fb2",
+        "#ffd1df",
+        "#ef5e8c"
+    ];
+
+    const color = colors[
+        Math.floor(Math.random() * colors.length)
+    ];
+
+    for (let i = 0; i < 55; i++) {
+
+        const angle = Math.PI * 2 * i / 55;
+        const speed = Math.random() * 3.5 + 1;
+
+        particles.push({
+            x,
+            y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 1,
+            color
+        });
+    }
+}
+
+function animate() {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+
+        const p = particles[i];
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += .025;
+        p.life -= .014;
+
+        ctx.globalAlpha = p.life;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+
+        ctx.fillStyle = p.color;
+        ctx.fill();
+
+        if (p.life <= 0) {
+            particles.splice(i, 1);
+        }
+    }
+
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+/* KEMBANG API RANDOM */
+
+setInterval(() => {
+    createFirework();
+}, 2300);
+
+</script>
+
+</body>
+</html>
